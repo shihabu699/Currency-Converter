@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Freek Tools offers a free currency converter tool to convert various currencies at real-time exchange rates. Get accurate and reliable conversions with our online tool.">
+    <meta name="keywords" content="currency converter, currency conversion tool, live exchange rates, forex, convert currency, best online currency converter, real-time currency conversion">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Freek Tools">
+    <title>Currency Converter | Freek Tools</title>
+    <link rel="icon" href="../images/Freektools_icon.png" type="image/png">
+    <link rel="canonical" href="https://freektools.com/CurrencyConverter/">
+    <meta property="og:title" content="Currency Converter | Freek Tools">
+    <meta property="og:description" content="Accurate and free currency conversion tool with live exchange rates. Convert various currencies instantly with Freek Tools' online tool.">
+    <meta property="og:image" content="../images/Freektools_logo.png">
+    <meta property="og:url" content="https://www.freektools.com/currency-converter">
+    <meta name="twitter:title" content="Currency Converter | Freek Tools">
+    <meta name="twitter:description" content="Accurate and free currency conversion tool with live exchange rates. Convert various currencies instantly with Freek Tools' online tool.">
+    <meta name="twitter:image" content="../images/Freektoolslogo.png">
+    <meta name="twitter:card" content="../images/Freektoolslogo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .bg-main {
+            background-color: #1f2937;
+        }
+        .btn-green {
+            background-color: #48bb78;
+        }
+        .btn-green:hover {
+            background-color: #38a169;
+        }
+        .shadow-lg {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar-item:hover {
+            text-decoration: underline;
+            color: #38a169;
+        }
+        .sidebar-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar-item img {
+            width: 20px;
+            margin-right: 10px;
+        }
+        .container-main {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            gap: 5px;
+            margin-top: 70px;
+        }
+        .content-container {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .sidebar-container {
+            padding: 30px;
+            background-color: #2d3748;
+            border-radius: 8px;
+            color: white;
+            height: 100%;
+        }
+        .sidebar-container h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .container-main {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-container {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-main text-white py-4 shadow-md fixed w-full z-50 top-0 left-0">
+    <div class="container mx-auto flex justify-between items-center px-4">
+        <a href="/" class="text-2xl font-semibold">
+            <img src="../images/Freektoolslogo.png" alt="Freek Tools Logo" class="h-8 inline-block mr-2">Freek Tools
+        </a>
+        <div class="flex items-center space-x-6 text-lg">
+            <a href="../index" class="hover:text-green-400">Home</a>
+            <a href="../aboutus" class="hover:text-green-400">About</a>
+            <a href="../contactus" class="hover:text-green-400">Contact</a>
+        </div>
+    </div>
+</div>
+<div class="container-main">
+
+    <!-- Left Column -->
+    <div></div>
+    <div>
+        <div class="content-container">
+            <h1 class="text-3xl font-bold text-center mb-6">Currency Converter</h1>
+            <p class="text-center text-lg text-gray-600 mb-8">Convert between different currencies with live exchange rates. Enter the amount and select the currencies to convert.</p>
+            <div class="mb-6">
+                <label for="amount" class="block text-lg font-semibold text-gray-700 mb-2">Amount</label>
+                <input type="number" id="amount" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Amount" required>
+            </div>
+
+            <div class="flex gap-4 mb-6">
+                <div class="w-full">
+                    <label for="fromCurrency" class="block text-lg font-semibold text-gray-700 mb-2">From Currency</label>
+                    <select id="fromCurrency" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="AUD">AUD - Australian Dollar</option>
+                        <option value="INR">INR - Indian Rupee</option>
+                        <option value="CAD">CAD - Canadian Dollar</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="CNY">CNY - Chinese Yuan</option>
+                    </select>
+                </div>
+
+                <div class="w-full">
+                    <label for="toCurrency" class="block text-lg font-semibold text-gray-700 mb-2">To Currency</label>
+                    <select id="toCurrency" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="AUD">AUD - Australian Dollar</option>
+                        <option value="INR">INR - Indian Rupee</option>
+                        <option value="CAD">CAD - Canadian Dollar</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="CNY">CNY - Chinese Yuan</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="w-full p-4 bg-green-500 text-white text-xl rounded-lg hover:bg-green-600 transition" id="convertButton">Convert</button>
+            <div id="conversionResult" class="mt-4 text-center text-xl font-semibold text-gray-700"></div>
+            <div id="errorMessage" class="mt-4 text-center text-xl text-red-500"></div>
+        </div>
+        <div class="content-container">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Why Use Our Currency Converter?</h2>
+            <p class="text-lg text-gray-700 mb-6">
+                Our currency converter tool provides accurate and real-time exchange rates to help you easily convert currencies worldwide. Whether you're traveling, trading, or making international payments, our free online tool offers quick and reliable conversions between numerous currencies.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Benefits of Currency Conversion Tools</h3>
+            <ul class="list-disc pl-5 text-lg text-gray-700">
+                <li>Real-time, accurate exchange rate information</li>
+                <li>Simplifies international transactions</li>
+                <li>Provides a comprehensive range of currencies</li>
+                <li>Enables smarter budgeting and financial planning</li>
+                <li>Helps businesses manage currency fluctuations</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mt-6 mb-4">How Our Currency Converter Works</h3>
+            <p class="text-lg text-gray-700 mb-6">
+                The currency converter works by fetching live exchange rate data from trusted APIs. It then calculates the converted amount based on the amount you input and the selected currencies. The tool is updated in real-time to ensure you have the latest exchange rates available for any currency pair.
+            </p>
+
+            <p class="text-lg text-gray-700 mt-6">
+                Our currency converter offers a fast, easy, and accurate way to manage your international financial transactions. Whether you're a frequent traveler, a business professional, or just curious about the latest exchange rates, this tool is designed to meet your needs.
+            </p>
+        </div>
+    </div>
+    <div class="sidebar-container">
+        <h2 class="text-xl font-bold text-white mb-6">Tools</h2>
+        <div class="space-y-4">
+            <a href="https://freektools.com/CurrencyConverter/" class="sidebar-item">
+                <img src="../images/Freektools_icon.png" alt="Tool Icon"> Currency Converter
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<footer class="bg-main text-white py-4 mt-12">
+    <div class="container mx-auto text-center">
+        <p>&copy; 2025 Freek Tools. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('convertButton').addEventListener('click', function() {
+        const amount = document.getElementById('amount').value;
+        const fromCurrency = document.getElementById('fromCurrency').value;
+        const toCurrency = document.getElementById('toCurrency').value;
+
+        if (!amount || isNaN(amount) || amount <= 0) {
+            document.getElementById('errorMessage').textContent = 'Please enter a valid amount to convert.';
+            return;
+        }
+
+        document.getElementById('errorMessage').textContent = '';
+
+        axios.get(`https://v6.exchangerate-api.com/v6/2d3e4aaa4e5b801af231eae4/latest/${fromCurrency}`) //API
+            .then(response => {
+                const rate = response.data.conversion_rates[toCurrency];
+                const convertedAmount = (amount * rate).toFixed(2);
+                document.getElementById('conversionResult').textContent = `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`;
+            })
+            .catch(error => {
+                document.getElementById('errorMessage').textContent = 'Failed to fetch exchange rates. Please try again later.';
+                console.error(error);
+            });
+    });
+</script>
+
+</body>
+</html>
